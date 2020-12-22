@@ -1,19 +1,19 @@
 import React from 'react'
-import {useState, useEffect, useParams} from 'react'
+import {useState, useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 
-const PostsDetails = (props) => {
+const PostsDetails = () => {
 
 const [post, setPost] = useState([]);
 const {id} = useParams()
-const getPost = async () => {
-    let res = await fetch ('https://jsonplaceholder.typicode.com/posts/' + id);
-    let post = await res.json();
-    setPost(post);
-}
 
 useEffect(() => {
-    getPost();
-}, [id]);
+    (async () => {
+        let res = await fetch ('https://jsonplaceholder.typicode.com/posts/' + id);
+        let post = await res.json();
+        setPost(post);
+    })()
+}, [id])
 
 if(!post){
     return(
