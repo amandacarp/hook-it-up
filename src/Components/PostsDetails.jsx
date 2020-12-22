@@ -1,19 +1,19 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useParams} from 'react'
 
 const PostsDetails = (props) => {
 
 const [post, setPost] = useState([]);
-
+const {id} = useParams()
 const getPost = async () => {
-    let res = await fetch ('https://jsonplaceholder.typicode.com/posts/' + props.match.params.id);
+    let res = await fetch ('https://jsonplaceholder.typicode.com/posts/' + id);
     let post = await res.json();
     setPost(post);
 }
 
 useEffect(() => {
     getPost();
-}, []);
+}, [id]);
 
 if(!post){
     return(
